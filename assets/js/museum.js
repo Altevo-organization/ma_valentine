@@ -778,6 +778,7 @@ function initMuseumControls() {
     document.addEventListener('mousemove', museumMouseHandler);
     document.addEventListener('mouseup', museumMouseUp);
     document.addEventListener('pointerlockchange', museumPointerLockChange);
+    document.addEventListener('webkitpointerlockchange', museumPointerLockChange);
     document.addEventListener('keydown', museumKeyDown);
     document.addEventListener('keyup', museumKeyUp);
 }
@@ -786,21 +787,28 @@ function museumPromptClick() {
     if (!museumActive) return;
     document.getElementById('museum-click-prompt').style.display = 'none';
     museumStarted = true;
-    document.getElementById('museum-canvas').requestPointerLock();
+    const canvas = document.getElementById('museum-canvas');
+    if ('requestPointerLock' in canvas) {
+        canvas.requestPointerLock();
+    }
 }
 
 function museumCanvasClick() {
     if (!museumActive) return;
     if (!museumPointerLocked) {
-        document.getElementById('museum-canvas').requestPointerLock();
+        const canvas = document.getElementById('museum-canvas');
+        if ('requestPointerLock' in canvas) {
+            canvas.requestPointerLock();
+        }
     }
 }
 
 function museumPointerLockChange() {
-    museumPointerLocked = document.pointerLockElement === document.getElementById('museum-canvas');
+    const canvas = document.getElementById('museum-canvas');
+    museumPointerLocked = (document.pointerLockElement || document.webkitPointerLockElement) === canvas;
     document.getElementById('museum-crosshair').style.display = museumPointerLocked ? 'block' : 'none';
-    if (!museumPointerLocked && !museumStarted) {
-        document.getElementById('museum-click-prompt').style.display = 'flex';
+    if (!museumPointerLocked) {
+        document.getElementById('museum-click-prompt').style.display = museumStarted ? 'none' : 'flex';
     } else {
         document.getElementById('museum-click-prompt').style.display = 'none';
     }
@@ -986,15 +994,11 @@ function closePaintingView() {
     museumStarted = true; // on s'assure que le mouvement/caméra reste actif
 
 
-    // Reprendre le contrôle caméra immédiatement (sans setTimeout)
-const canvas = document.getElementById('museum-canvas');
-try {
-    if (museumActive) canvas.requestPointerLock();
-} catch (e) {
-    // Si le navigateur refuse, on affiche un prompt pour cliquer
-    document.getElementById('museum-click-prompt').style.display = 'flex';
-}
-
+    // Reprendre le contrôle caméra
+    const canvas = document.getElementById('museum-canvas');
+    if (museumActive && 'requestPointerLock' in canvas) {
+        try { canvas.requestPointerLock(); } catch (e) { /* drag mode fallback */ }
+    }
 }
 
 // ========== RENDER LOOP ==========
@@ -1067,10 +1071,12 @@ function disposeMuseum() {
     const clickPrompt = document.getElementById('museum-click-prompt');
     if (clickPrompt) clickPrompt.removeEventListener('click', museumPromptClick);
     document.removeEventListener('pointerlockchange', museumPointerLockChange);
+    document.removeEventListener('webkitpointerlockchange', museumPointerLockChange);
     document.removeEventListener('mousemove', museumMouseHandler);
     document.removeEventListener('mouseup', museumMouseUp);
     document.removeEventListener('keydown', museumKeyDown);
     document.removeEventListener('keyup', museumKeyUp);
+    window.removeEventListener('resize', museumResize);
 
     if (museumScene) {
         museumScene.traverse(obj => {
@@ -1169,9 +1175,10 @@ function mobilePrev() {
 }
 
 // ========== RESIZE ==========
-window.addEventListener('resize', () => {
-    if (!museumActive || !museumRenderer) return;
+function museumResize() {
+    if (!museumActive || !museumRenderer || !museumCamera) return;
     museumCamera.aspect = window.innerWidth / window.innerHeight;
     museumCamera.updateProjectionMatrix();
     museumRenderer.setSize(window.innerWidth, window.innerHeight);
-});
+}
+window.addEventListener('resize', museumResize);

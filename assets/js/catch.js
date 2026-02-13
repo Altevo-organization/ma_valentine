@@ -12,6 +12,7 @@ const CATCH_IMAGES = [
 ];
 
 function initCatchGame() {
+    if (catchInterval) { clearInterval(catchInterval); catchInterval = null; }
     catchScore = 0;
     updateCatchScore();
     document.getElementById('catch-area').innerHTML = '';

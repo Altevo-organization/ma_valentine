@@ -8,6 +8,7 @@
     margin-right: auto;
 
     /* IMPORTANT */
+    -webkit-perspective: 1000px;
     perspective: 1000px;
 }
 
@@ -25,6 +26,7 @@
     position: absolute;
     inset: 0;
     border-radius: 14px;
+    -webkit-transform-style: preserve-3d;
     transform-style: preserve-3d;
     transition: transform 0.45s ease;
 }
@@ -63,6 +65,7 @@
     object-fit: cover;
     border-radius: 14px;
     display: block;
+    -webkit-user-select: none;
     user-select: none;
     pointer-events: none;
 }
