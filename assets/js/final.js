@@ -77,7 +77,11 @@ function initCelebration() {
     fetch("https://formsubmit.co/ajax/maxime.behr@epitech.eu", {
         method: "POST",
         headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-        body: JSON.stringify({ message: "Paupau a dit OUI ! \uD83D\uDC96\uD83C\uDF89 Elle veut etre ta Valentine !" })
+        body: JSON.stringify({
+            _subject: "BRAVOOO MON COEUR",
+            _template: "box",
+            message: "Je t'aime très très fort mon coeur tu me manques beaucoup.\n\nJ'ai très hate de te revoir et vivre pleins de chose avec toi!\n\nJe t'aime gros BISOUS!!\n\nTon valentin"
+        })
     }).then(r => r.json()).then(d => console.log("Email sent:", d)).catch(e => console.log("Email error:", e));
 
     // Show museum button after 5 seconds

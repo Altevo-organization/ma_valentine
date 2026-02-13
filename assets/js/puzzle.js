@@ -10,8 +10,8 @@ const PUZZLE_TARGET_LETTERS = PUZZLE_STRUCTURE.filter(c => c !== ' ');
 
 // Lettres pièges (tu peux en ajouter/enlever)
 const PUZZLE_DECOYS = [
-  'E','E','T','T','A','A','U','U','P','P','M','M','O','O','X','X', // doublons trompeurs
-  'R','S','L','N','I','C','D','H','Y','K','V','B'
+  'E','T','A','U','P','M','O','X', // doublons trompeurs
+  'R','S','L','N','I','C','D'
 ];
 
 let puzzleAnswer = [];

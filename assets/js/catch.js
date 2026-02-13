@@ -1,6 +1,15 @@
-// Catch hearts game
+// Catch photos game
 let catchScore = 0, catchInterval = null;
 const CATCH_GOAL = 10;
+
+const CATCH_IMAGES = [
+    'assets/images/hearts/heart1.jpg',
+    'assets/images/hearts/heart2.jpg',
+    'assets/images/hearts/heart3.jpg',
+    'assets/images/hearts/heart4.jpg',
+    'assets/images/hearts/heart5.jpg',
+    'assets/images/hearts/heart6.jpg'
+];
 
 function initCatchGame() {
     catchScore = 0;
@@ -14,11 +23,16 @@ function spawnHeart() {
     const area = document.getElementById('catch-area');
     const heart = document.createElement('div');
     heart.className = 'falling-heart';
-    const hearts = ['\u2764\uFE0F', '\uD83D\uDC97', '\uD83D\uDC96', '\uD83D\uDC9D', '\uD83E\uDE77'];
-    heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
-    const x = Math.random() * (area.offsetWidth - 40);
+
+    const img = document.createElement('img');
+    img.src = CATCH_IMAGES[Math.floor(Math.random() * CATCH_IMAGES.length)];
+    img.alt = '';
+    img.draggable = false;
+    heart.appendChild(img);
+
+    const x = Math.random() * (area.offsetWidth - 55);
     heart.style.left = x + 'px';
-    heart.style.top = '-40px';
+    heart.style.top = '-60px';
     const duration = 2000 + Math.random() * 1500;
     const startTime = Date.now();
 
@@ -45,7 +59,7 @@ function spawnHeart() {
             if (!heart.classList.contains('caught')) heart.remove();
             return;
         }
-        heart.style.top = (progress * (area.offsetHeight + 40) - 40) + 'px';
+        heart.style.top = (progress * (area.offsetHeight + 60) - 60) + 'px';
         heart.style.transform = `translateX(${Math.sin(elapsed / 200) * 15}px)`;
         requestAnimationFrame(fall);
     })();
