@@ -4,7 +4,14 @@
       "Bash(dir /s \"c:\\\\Users\\\\max\\\\Documents\\\\freelance\\\\Valentine_Date_no_is_not_an_option_with_Response_Mail\")",
       "WebFetch(domain:cdnjs.cloudflare.com)",
       "WebFetch(domain:unpkg.com)",
-      "WebFetch(domain:cdn.jsdelivr.net)"
+      "WebFetch(domain:cdn.jsdelivr.net)",
+      "Bash(dir:*)",
+      "Bash(cmd /c \"dir c:\\\\Users\\\\max\\\\Documents\\\\freelance\\\\ma_valentine\\\\assets\\\\images\\\\museum\")",
+      "Bash(cmd /c \"del c:\\\\Users\\\\max\\\\Documents\\\\freelance\\\\ma_valentine\\\\assets\\\\js\\\\tictactoe.js\")",
+      "Bash(cmd /c \"del c:\\\\Users\\\\max\\\\Documents\\\\freelance\\\\ma_valentine\\\\assets\\\\css\\\\tictactoe.css\")",
+      "Bash(cmd /c:*)",
+      "Bash(git mv:*)",
+      "Bash(git rm:*)"
     ]
   }
 }

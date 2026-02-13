@@ -20,7 +20,6 @@ function goToScreen(id) {
             'screen-wheel': initWheel,
             'screen-puzzle': initPuzzle,
             'screen-maze': initMaze,
-            'screen-ttt': initTTT,
             'screen-question': initQuestion,
             'screen-celebrate': initCelebration,
             'screen-museum': initMuseum

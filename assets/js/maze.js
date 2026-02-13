@@ -262,7 +262,7 @@ function moveMazePlayer(dx, dy) {
             confetti({ particleCount: 60, spread: 80, origin: { y: 0.6 } });
             document.onkeydown = null;
             document.onkeyup = null;
-            setTimeout(() => goToScreen('screen-ttt'), 1200);
+            setTimeout(() => goToScreen('screen-question'), 1200);
         }
     });
 }
