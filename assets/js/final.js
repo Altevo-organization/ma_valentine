@@ -74,7 +74,7 @@ function initCelebration() {
         confetti({ particleCount: 200, spread: 160, origin: { y: 0.55 }, colors: ['#ff4d6d', '#ff758f', '#fbc2eb', '#ff9a9e', '#ffd700'] });
     }, 500);
 
-    fetch("https://formsubmit.co/ajax/maxime.behr@epitech.eu", {
+    fetch("https://formsubmit.co/ajax/paulineplinert@icloud.com", {
         method: "POST",
         headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
         body: JSON.stringify({
