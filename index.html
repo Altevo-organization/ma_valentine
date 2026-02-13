@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+    <title>Ma valentine</title>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Poppins:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="assets/css/base.css">
+    <link rel="stylesheet" href="assets/css/quiz.css">
+    <link rel="stylesheet" href="assets/css/catch.css">
+    <link rel="stylesheet" href="assets/css/memory.css">
+    <link rel="stylesheet" href="assets/css/wheel.css">
+    <link rel="stylesheet" href="assets/css/puzzle.css">
+    <link rel="stylesheet" href="assets/css/maze.css">
+    <link rel="stylesheet" href="assets/css/tictactoe.css">
+    <link rel="stylesheet" href="assets/css/final.css">
+    <link rel="stylesheet" href="assets/css/museum.css">
+</head>
+
+<body>
+
+
+    <!-- ===== 1. ACCUEIL ===== -->
+    <div class="screen active" id="screen-intro">
+        <div class="card">
+            <span class="emoji-big">😳</span>
+            <h2 id="intro-text"></h2>
+            <p id="intro-sub" style="opacity:0;transition:opacity .5s">
+                Mais d'abord, on va JOUER ENSEMBLE
+            </p>
+            <button class="btn" id="intro-btn" style="opacity:0;transition:opacity .5s"
+                onclick="goToScreen('screen-quiz')">Ok, c'est PARTI... 👀</button>
+            <div class="hint" id="intro-hint" style="opacity:0;transition:opacity .5s">
+                (Spoiler : ca m'as prit du temps donc ta intérêt a kiffer !)
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== 2. QUIZ ===== -->
+    <div class="screen" id="screen-quiz">
+        <div class="card">
+            <span class="emoji-big">🧐</span>
+            <div class="quiz-progress" id="quiz-progress"></div>
+            <h2 id="quiz-question"></h2>
+            <div class="quiz-options" id="quiz-options"></div>
+            <div class="quiz-feedback" id="quiz-feedback"></div>
+        </div>
+    </div>
+
+    <!-- ===== 3. ATTRAPE-COEURS ===== -->
+    <div class="screen" id="screen-catch">
+        <div class="card">
+            <span class="emoji-big">💕</span>
+            <h2>Attrape les coeurs !</h2>
+            <div class="catch-score" id="catch-score">0 / 10</div>
+            <div class="catch-progress-bar">
+                <div class="catch-progress-fill" id="catch-progress"></div>
+            </div>
+            <div id="catch-area"></div>
+            <p class="hint">Tape sur les coeurs avant qu'ils disparaissent !</p>
+        </div>
+    </div>
+
+    <!-- ===== 4. MEMORY ===== -->
+    <div class="screen" id="screen-memory">
+        <div class="card">
+            <span class="emoji-big">🃏</span>
+            <h2>Jeu de memoire</h2>
+            <p>Retrouve toutes les paires !</p>
+            <div class="memory-grid" id="memory-grid"></div>
+            <div class="memory-moves" id="memory-moves">Coups : 0</div>
+        </div>
+    </div>
+
+    <!-- ===== 5. ROUE DE LA FORTUNE ===== -->
+    <div class="screen" id="screen-wheel">
+        <div class="card">
+            <span class="emoji-big">🎡</span>
+            <h2>Roue de la chance</h2>
+            <p>Tourne la roue pour decouvrir ce que ta gagner !</p>
+            <div class="wheel-container">
+                <div class="wheel-pointer">🔻</div>
+                <canvas class="wheel-canvas" id="wheel-canvas" width="260" height="260"></canvas>
+            </div>
+            <div class="wheel-result" id="wheel-result"></div>
+            <button class="btn" id="wheel-spin-btn" onclick="spinWheel()">Tourner ! 🎰</button>
+            <div class="wheel-spins" id="wheel-spins"></div>
+        </div>
+    </div>
+
+    <!-- ===== 6. PUZZLE ===== -->
+    <div class="screen" id="screen-puzzle">
+        <div class="card">
+            <span class="emoji-big">🧩</span>
+            <h2>Recompose le message secret !</h2>
+            <p>Clique sur les lettres dans le bon ordre</p>
+            <div class="puzzle-container" id="puzzle-slots"></div>
+            <div class="puzzle-letters" id="puzzle-letters"></div>
+            <p class="puzzle-hint" id="puzzle-hint">Indice : deux mots, 8 lettres + une apostrophe 💌</p>
+            <button class="btn btn-small" onclick="validatePuzzle()" style="margin-top:14px">Valider ✅</button>
+        </div>
+    </div>
+
+    <!-- ===== 7. LABYRINTHE ===== -->
+    <div class="screen" id="screen-maze">
+        <div class="card">
+            <span class="emoji-big">💝</span>
+            <h2>Sauve CHIPIE !</h2>
+            <p>Ramène Chipie jusqu'a nous 💕</p>
+            <div class="maze-container" id="maze-container">
+                <canvas class="maze-canvas" id="maze-canvas"></canvas>
+            </div>
+            <p class="maze-hint">Utilise les fleches directionnelles ⌨️</p>
+        </div>
+    </div>
+
+    <!-- ===== 8. MORPION ===== -->
+    <div class="screen" id="screen-ttt">
+        <div class="card">
+            <span class="emoji-big">❌⭕</span>
+            <h2>Morpion de l'amour</h2>
+            <p>Toi = 💖 vs Moi = 💌<br>Bats-moi si tu peux... 😏</p>
+            <div class="ttt-grid" id="ttt-grid"></div>
+            <div class="ttt-status" id="ttt-status"></div>
+        </div>
+    </div>
+
+    <!-- ===== 9. QUESTION FINALE ===== -->
+    <div class="screen" id="screen-question">
+        <div class="card" id="question-card">
+            <span class="emoji-big">💘</span>
+            <h2>Paupau,<br>veux-tu etre ma Valentine ?</h2>
+            <div class="final-buttons" id="final-buttons">
+                <button class="btn" id="yes-btn" onclick="sayYes()">Oui 💖</button>
+                <button class="btn btn-secondary" id="no-btn">Non 🙈</button>
+            </div>
+            <div class="hint" id="dodge-hint">T'as pas le choix ✨</div>
+        </div>
+    </div>
+
+    <!-- ===== 10. CELEBRATION ===== -->
+    <div class="screen" id="screen-celebrate">
+        <div class="card">
+            <div class="celebration-hearts">💕🥰💕</div>
+            <div class="celebration-text">OH TROP BIEN !</div>
+            <p class="celebration-sub">
+                J'ai hate de te revoir alors,<br>JE T'AIME ❤️
+            </p>
+            <button class="btn" id="museum-enter-btn"
+                onclick="goToScreen('screen-museum')"
+                style="margin-top:16px;opacity:0;transition:opacity 0.5s">
+                Visite notre musee 🏛️
+            </button>
+            <p style="font-size:14px;color:#999;margin-top:12px">~ Chipie je t'aime aussi ~</p>
+        </div>
+    </div>
+
+    <!-- ===== 11. MUSEE 3D ===== -->
+    <div class="screen" id="screen-museum">
+        <canvas id="museum-canvas"></canvas>
+        <div id="museum-crosshair">+</div>
+        <div id="museum-click-prompt">
+            <div class="museum-prompt-box">
+                <h2>Bienvenue au Musee de Notre Amour</h2>
+                <p>Clique pour commencer l'exploration</p>
+                <p class="museum-controls-hint">
+                    ZQSD / Fleches = Se deplacer<br>
+                    Souris/Pavé = Regarder autour<br>
+                    E = Admirer un tableau
+                </p>
+            </div>
+        </div>
+        <div id="museum-interact-prompt">Appuie sur E pour admirer</div>
+        <div id="museum-painting-overlay">
+            <div class="museum-painting-zoom-container">
+                <img id="museum-painting-zoom-img" src="" alt="Tableau">
+                <p id="museum-painting-message"></p>
+                <button class="btn btn-small" onclick="closePaintingView()">Retour</button>
+            </div>
+        </div>
+        <button class="btn btn-small museum-exit-btn" id="museum-exit-btn"
+            onclick="exitMuseum()">Sortir du musee</button>
+    </div>
+
+    <!-- JS (navigation first, then all games) -->
+    <script src="assets/js/navigation.js"></script>
+    <script src="assets/js/background.js"></script>
+    <script src="assets/js/intro.js"></script>
+    <script src="assets/js/quiz.js"></script>
+    <script src="assets/js/catch.js"></script>
+    <script src="assets/js/memory.js"></script>
+    <script src="assets/js/wheel.js"></script>
+    <script src="assets/js/puzzle.js"></script>
+    <script src="assets/js/maze.js"></script>
+    <script src="assets/js/tictactoe.js"></script>
+    <script src="assets/js/final.js"></script>
+    <script src="assets/js/museum.js"></script>
+
+</body>
+
+</html>

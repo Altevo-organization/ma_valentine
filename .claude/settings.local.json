@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(dir /s \"c:\\\\Users\\\\max\\\\Documents\\\\freelance\\\\Valentine_Date_no_is_not_an_option_with_Response_Mail\")",
+      "WebFetch(domain:cdnjs.cloudflare.com)",
+      "WebFetch(domain:unpkg.com)",
+      "WebFetch(domain:cdn.jsdelivr.net)"
+    ]
+  }
+}

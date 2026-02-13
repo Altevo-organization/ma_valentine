@@ -1,0 +1,94 @@
+.memory-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+    margin-top: 16px;
+    max-width: 300px;
+    margin-left: auto;
+    margin-right: auto;
+
+    /* IMPORTANT */
+    perspective: 1000px;
+}
+
+.memory-card {
+    aspect-ratio: 1;
+    border-radius: 14px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(255, 77, 109, 0.3);
+}
+
+/* Le wrapper qui tourne */
+.memory-inner {
+    position: absolute;
+    inset: 0;
+    border-radius: 14px;
+    transform-style: preserve-3d;
+    transition: transform 0.45s ease;
+}
+
+/* Faces */
+.memory-front,
+.memory-back {
+    position: absolute;
+    inset: 0;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+}
+
+/* Front */
+.memory-front {
+    background: linear-gradient(135deg, #ff4d6d, #ff758f);
+    color: white;
+    font-size: 22px;
+}
+
+/* Back */
+.memory-back {
+    transform: rotateY(180deg);
+    background: #fff; /* tu peux remettre transparent si tu veux */
+}
+
+/* Image */
+.memory-back img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 14px;
+    display: block;
+    user-select: none;
+    pointer-events: none;
+}
+
+/* Flip */
+.memory-card.flipped .memory-inner {
+    transform: rotateY(180deg);
+}
+
+.memory-card.matched .memory-inner {
+    transform: rotateY(180deg);
+}
+
+.memory-card.matched {
+    box-shadow: 0 0 20px rgba(76, 175, 80, 0.4);
+    pointer-events: none;
+}
+
+.memory-moves {
+    font-size: 14px;
+    color: #ff4d6d;
+    font-weight: 600;
+    margin-top: 12px;
+}
+
+@media (max-width: 480px) {
+    .memory-grid { gap: 6px; max-width: 260px; }
+    .memory-front { font-size: 18px; }
+}

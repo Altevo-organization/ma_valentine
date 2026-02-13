@@ -1,0 +1,46 @@
+.wheel-container {
+    position: relative;
+    margin: 16px auto;
+    width: 260px;
+    height: 260px;
+}
+
+.wheel-canvas {
+    width: 260px;
+    height: 260px;
+    border-radius: 50%;
+    box-shadow: 0 0 30px rgba(255, 77, 109, 0.3), inset 0 0 0 6px #ff4d6d;
+}
+
+.wheel-pointer {
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 28px;
+    z-index: 5;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+}
+
+.wheel-result {
+    margin-top: 16px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #ff4d6d;
+    min-height: 24px;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.wheel-result.show { opacity: 1; }
+
+.wheel-spins {
+    font-size: 13px;
+    color: #999;
+    margin-top: 8px;
+}
+
+@media (max-width: 480px) {
+    .wheel-container { width: 220px; height: 220px; }
+    .wheel-canvas { width: 220px; height: 220px; }
+}

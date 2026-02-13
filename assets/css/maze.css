@@ -1,0 +1,16 @@
+.maze-container {
+    position: relative;
+    margin: 12px auto;
+    touch-action: none;
+}
+
+.maze-canvas {
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.maze-hint {
+    font-size: 13px;
+    color: #999;
+    margin-top: 10px;
+}

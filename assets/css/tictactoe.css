@@ -1,0 +1,46 @@
+.ttt-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    max-width: 240px;
+    margin: 16px auto;
+}
+
+.ttt-cell {
+    aspect-ratio: 1;
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.85);
+    border: 2px solid rgba(255, 77, 109, 0.2);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 36px;
+    transition: all 0.3s ease;
+}
+
+.ttt-cell:hover {
+    border-color: #ff4d6d;
+    background: rgba(255, 77, 109, 0.05);
+}
+
+.ttt-cell.taken { pointer-events: none; }
+
+.ttt-cell.win-cell {
+    background: rgba(255, 77, 109, 0.15);
+    border-color: #ff4d6d;
+    animation: pop 0.5s ease;
+}
+
+.ttt-status {
+    font-size: 16px;
+    font-weight: 600;
+    color: #ff4d6d;
+    margin-top: 12px;
+    min-height: 24px;
+}
+
+@media (max-width: 480px) {
+    .ttt-grid { max-width: 200px; }
+    .ttt-cell { font-size: 28px; }
+}
